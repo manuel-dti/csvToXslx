@@ -45,7 +45,7 @@ def leer_fichero(ruta_csv:str="asistentes.csv"):
     return data_output
 
 
-# Contrantes globales
+# Constantes globales
 RUTA_CSV = "asistentes.csv"
 RUTA_EXCEL = "asistentes.xlsx"
 
