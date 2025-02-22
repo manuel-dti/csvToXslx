@@ -1,6 +1,40 @@
 import csv
 from openpyxl import Workbook
-import json
+
+
+#función para escribir los excels desde una ruta
+def escribir_excel(ruta:str, alumnado:list, row_batch = 8):
+    # Creamos el archivo xlsx
+    workbook = Workbook()
+
+    # Seleccionamos la hoja activa
+    hoja = workbook.active
+
+    contador_personas = 1 # Contador para saber cuantos personas
+
+    fila = 1 # Fila en la que comienza (El xlsx comienza en 1)
+    columna = 1 # Columna en la que comienza (El xlsx comienza en 1)
+
+    # Iteramos sobre los nombres y apellidos
+    for i in range(len(alumnado)):
+        
+        hoja.cell(row=fila, column=columna).value = alumnado[i][0] # Nombre
+        hoja.cell(row=fila, column=columna+1).value = alumnado[i][1] # Apellido
+        
+        if contador_personas % row_batch == 0:
+            fila += 1
+
+        fila += 1
+        
+        if contador_personas >= len(nombres_y_apellidos)/2:
+            if contador_personas % row_batch == 0:
+                columna = 4
+                fila = 1
+                contador_personas = 0
+                
+        contador_personas += 1
+
+    workbook.save(ruta)
 
 # Leer el archivo csv y guardarlo en una lista
 nombres_y_apellidos = []
