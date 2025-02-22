@@ -2,7 +2,7 @@ import csv
 import os
 import unittest
 from openpyxl import Workbook, load_workbook
-from alumnosCsvToXslx_alfabeticamenteAbajo import escribir_excel
+from alumnosCsvToXslx_alfabeticamenteAbajo import escribir_excel, mover_puntero
 
 class TestAsistentes(unittest.TestCase):
 
@@ -80,6 +80,90 @@ class TestAsistentes(unittest.TestCase):
             self.assertEqual(hoja.cell(row=contador, column=2).value, alumno[1])# comprobar apellidos
             contador += 1
 
+    def test_mover_puntero(self):
+        puntero = mover_puntero()
+        self.assertEqual(puntero.get("fila"), 1)
+        self.assertEqual(puntero.get("columna"), 1)
+
+    def test_mover_puntero_4_veces(self):
+        puntero = mover_puntero()
+        for i in range(3):
+            puntero = mover_puntero(puntero.get("fila"), puntero.get("columna"), i+1)
+        self.assertEqual(puntero.get("fila"), 4)
+        self.assertEqual(puntero.get("columna"), 1)   
+
+    def test_mover_puntero_7_veces(self):
+        puntero = mover_puntero()
+        for i in range(6):
+            puntero = mover_puntero(puntero.get("fila"), puntero.get("columna"), i+1) 
+        self.assertEqual(puntero.get("fila"), 7)
+        self.assertEqual(puntero.get("columna"), 1) 
+    
+    def test_mover_puntero_8_veces(self):
+        puntero = mover_puntero()
+        for i in range(7):
+            puntero = mover_puntero(puntero.get("fila"), puntero.get("columna"), i+1)
+            
+        self.assertEqual(puntero.get("fila"), 8)
+        self.assertEqual(puntero.get("columna"), 1)
+
+    def test_mover_puntero_9_veces_16_alu_8_batch(self):
+        puntero = mover_puntero()
+
+        for i in range(8):
+            puntero = mover_puntero(puntero.get("fila"), puntero.get("columna"), i+1)
+            
+        
+        self.assertEqual(puntero.get("fila"), 1)
+        self.assertEqual(puntero.get("columna"), 4) 
+
+    def test_mover_puntero_9_veces_33_alu_8_batch(self):
+        puntero = mover_puntero()
+
+        for i in range(8):
+            puntero = mover_puntero(puntero.get("fila"), puntero.get("columna"), i+1, 33, 8)
+            
+        
+        self.assertEqual(puntero.get("fila"), 10)
+        self.assertEqual(puntero.get("columna"), 1)
+
+    def test_mover_puntero_8_veces_33_alu_8_batch(self):
+        puntero = mover_puntero()
+
+        for i in range(7):
+            puntero = mover_puntero(puntero.get("fila"), puntero.get("columna"), i+1, 33, 8)
+            
+        
+        self.assertEqual(puntero.get("fila"), 8)
+        self.assertEqual(puntero.get("columna"), 1)
+
+    def test_mover_puntero_9_veces_33_alu_8_batch(self):
+        puntero = mover_puntero()
+
+        for i in range(8):
+            puntero = mover_puntero(puntero.get("fila"), puntero.get("columna"), i+1, 33, 8)
+            
+        
+        self.assertEqual(puntero.get("fila"), 10)
+        self.assertEqual(puntero.get("columna"), 1)
+
+    def test_mover_puntero_15_alumnos_33_longitud_8_batch(self):
+        puntero = mover_puntero()
+
+        for i in range(15):
+            puntero = mover_puntero(puntero.get("fila"), puntero.get("columna"), i+1, 33, 8)            
+        
+        self.assertEqual(puntero.get("fila"), 17)
+        self.assertEqual(puntero.get("columna"), 1)
+
+    def test_mover_puntero_16_alumnos_33_longitud_8_batch(self):
+        puntero = mover_puntero()
+
+        for i in range(16):
+            puntero = mover_puntero(puntero.get("fila"), puntero.get("columna"), i+1, 33, 8)
+            
+        self.assertEqual(puntero.get("fila"), 1)
+        self.assertEqual(puntero.get("columna"), 4)
 
 if __name__ == "__main__":
     unittest.main()
