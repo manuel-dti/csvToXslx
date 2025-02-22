@@ -1,8 +1,26 @@
 import csv
 from openpyxl import Workbook
 
+# Constantes globales
+RUTA_CSV = "asistentes.csv"
+RUTA_EXCEL = "asistentes.xlsx"
+ROW_BATCH = 8
+
 #
-def mover_cursor(fila=0, columna=1, contador_personas=1, longitud=16, row_batch=8):
+def mover_cursor(fila=0, columna=1, contador_personas=1, longitud=16, row_batch=ROW_BATCH):
+    """
+    Actualiza la posición del cursor (fila y columna) para escribir en el archivo Excel.
+
+    Parámetros:
+        fila (int): Fila actual.
+        columna (int): Columna actual.
+        contador_personas (int): Número de personas procesadas hasta el momento.
+        longitud (int): Número total de personas.
+        row_batch (int): Número de personas por grupo antes de saltar una línea.
+
+    Retorna:
+        dict: Un diccionario con la nueva fila, columna y contador de personas.
+    """
     fila += 1       
 
     # Si se completa un grupo saltar una línea
@@ -14,7 +32,7 @@ def mover_cursor(fila=0, columna=1, contador_personas=1, longitud=16, row_batch=
             columna = 4
             fila = 1
 
-    return {"fila":fila, "columna": columna, "contador_personas":contador_personas}
+    return {"fila":fila, "columna": columna}
 
 #función para escribir los excels desde una ruta
 def escribir_excel(ruta:str, alumnado:list, row_batch = 8):
@@ -45,9 +63,7 @@ def leer_fichero(ruta_csv:str="asistentes.csv"):
     return data_output
 
 
-# Constantes globales
-RUTA_CSV = "asistentes.csv"
-RUTA_EXCEL = "asistentes.xlsx"
+
 
 # Leer el archivo csv y guardarlo en una lista
 nombres_y_apellidos = sorted(leer_fichero(RUTA_CSV), key=lambda x: (x[1], x[0]))

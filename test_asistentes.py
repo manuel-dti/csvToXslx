@@ -2,7 +2,7 @@ import csv
 import os
 import unittest
 from openpyxl import Workbook, load_workbook
-from alumnosCsvToXslx_alfabeticamenteAbajo import escribir_excel, mover_cursor
+from alumnosCsvToXslx_alfabeticamenteAbajo import escribir_excel, mover_cursor, leer_fichero
 
 class TestAsistentes(unittest.TestCase):
 
@@ -164,6 +164,11 @@ class TestAsistentes(unittest.TestCase):
             
         self.assertEqual(puntero.get("fila"), 1)
         self.assertEqual(puntero.get("columna"), 4)
+
+    def test_leer_fichero(self):
+        output = leer_fichero(self.ruta_csv)
+        self.assertEqual(output, self.datos_prueba)
+
 
 if __name__ == "__main__":
     unittest.main()
